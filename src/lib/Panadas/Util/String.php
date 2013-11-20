@@ -4,6 +4,9 @@ namespace Panadas\Util;
 class String
 {
 
+    const RANDOM_MCRYPT_IV_SIZE = 10;
+    const RANDOM_MCRYPT_IV_SOURCE = MCRYPT_DEV_URANDOM;
+
     /**
      * Mask a string, optionally revealing some of the last characters. The number of characters to reveal can be
      * provided as an argument but a maximum of 25% of the string will be revealed and this will override the number
@@ -131,7 +134,7 @@ class String
         $string = null;
 
         while (mb_strlen($string) < $length) {
-            $string .= sha1(mcrypt_create_iv(10, MCRYPT_DEV_URANDOM));
+            $string .= sha1(mcrypt_create_iv(static::RANDOM_MCRYPT_IV_SIZE, static::RANDOM_MCRYPT_IV_SOURCE));
         }
 
         if (mb_strlen($string) > $length) {
