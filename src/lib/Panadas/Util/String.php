@@ -4,43 +4,54 @@ namespace Panadas\Util;
 class String
 {
 
+    const MASK_REVEAL_PERCENT = 25;
+    const MASK_REVEAL_MAX_LENGTH = 8;
+
     const RANDOM_MCRYPT_IV_SIZE = 10;
     const RANDOM_MCRYPT_IV_SOURCE = MCRYPT_DEV_URANDOM;
 
     /**
-     * Mask a string, optionally revealing some of the last characters. The number of characters to reveal can be
-     * provided as an argument but a maximum of 25% of the string will be revealed and this will override the number
-     * requested.
+     * Mask a string, optionally revealing some of the first and last characters.
      *
      * @param  string  $string
-     * @param  integer $reveal
+     * @param  boolean $reveal
      * @param  string  $character
      * @throws \InvalidArgumentException
      * @return string
      */
-    public static function mask($string, $reveal = 0, $character = "•")
+    public static function mask($string, $reveal = false, $character = "*")
     {
         if (mb_strlen($character) !== 1) {
             throw new \InvalidArgumentException("A single character is required");
         }
 
         $length = mb_strlen($string);
-        $masked = str_repeat($character, $length);
 
-        if ($reveal > 0) {
+        if ($reveal) {
 
-            // Reveal a maximum of 25% of the original string
-            $max_reveal = round($length * 0.25);
+            // Calculate the number of characters to reveal up to a maximum of MASK_REVEAL_MAX_LENGTH characters
+            $reveal_length = min(
+                ($length * (static::MASK_REVEAL_PERCENT / 100)),
+                static::MASK_REVEAL_MAX_LENGTH
+            );
 
-            if ($reveal > $max_reveal) {
-                $reveal = $max_reveal;
-            }
+            // Set the number of characters to reveal each side
+            $reveal_length = floor($reveal_length / 2);
 
-            if ($reveal > 0) {
-                $masked = mb_substr($masked, 0, ($length - $reveal));
-                $masked .= mb_substr($string, -$reveal);
-            }
+        } else {
+            $reveal_length = 0;
+        }
 
+        $masked = "";
+
+        if ($reveal_length > 0) {
+            $masked .= mb_substr($string, 0, $reveal_length);
+        }
+
+        $masked .= str_repeat($character, ($length - ($reveal_length * 2)));
+
+        if ($reveal_length > 0) {
+            $masked .= mb_substr($string, -$reveal_length);
         }
 
         return $masked;
