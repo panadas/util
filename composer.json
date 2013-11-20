@@ -1,0 +1,20 @@
+{
+    "name": "panadas/util",
+    "description": "A set of generic utility methods.",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": ">=5.4.0",
+        "ext-mcrypt": "*"
+    },
+    "autoload": {
+        "psr-0" : {
+            "Panadas\\Module\\Util\\": "src/lib/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
