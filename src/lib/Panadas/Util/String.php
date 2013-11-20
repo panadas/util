@@ -12,7 +12,7 @@ class String
      * @param unknown $string
      * @param number $reveal
      * @param string $character
-     * @throws \Panadas\Exception\InvalidArgument
+     * @throws \InvalidArgumentException
      * @return string
      */
     public static function mask($string, $reveal = 0, $character = "•")
