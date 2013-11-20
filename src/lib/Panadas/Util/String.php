@@ -135,7 +135,7 @@ class String
         }
 
         if (mb_strlen($string) > $length) {
-            $string = substr($string, 0, $length);
+            $string = mb_substr($string, 0, $length);
         }
 
         return $string;
