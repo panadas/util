@@ -9,9 +9,9 @@ class String
      * provided as an argument but a maximum of 25% of the string will be revealed and this will override the number
      * requested.
      *
-     * @param  string $string
+     * @param  string  $string
      * @param  integer $reveal
-     * @param  string $character
+     * @param  string  $character
      * @throws \InvalidArgumentException
      * @return string
      */
