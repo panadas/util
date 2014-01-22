@@ -4,12 +4,11 @@
     "license": "MIT",
     "type": "library",
     "require": {
-        "php": ">=5.4.0",
         "ext-mcrypt": "*"
     },
     "autoload": {
-        "psr-0" : {
-            "Panadas\\Util\\": "src/lib/"
+        "psr-4" : {
+            "Panadas\\Util\\": "src/"
         }
     },
     "extra": {
