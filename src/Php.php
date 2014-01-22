@@ -21,7 +21,7 @@ class Php
             case "string":
                 return "\"{$var}\"";
             case "array":
-                return "Array(" . count($var) . " elements)";
+                return "Array(" . count($var) . ")";
             case "object":
                 return "Object(" . get_class($var) . ")";
             case "resource":
