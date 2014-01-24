@@ -99,7 +99,7 @@ class Http
      */
     public static function getPhpHeaderName($name)
     {
-        return "HTTP_" . str_replace("-", "_", mb_strtoupper($name));
+        return "HTTP_" . preg_replace("/[^0-9a-z]/i", "_", mb_strtoupper($name));
     }
 
 }

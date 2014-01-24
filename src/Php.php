@@ -14,22 +14,22 @@ class Php
     {
         switch (gettype($var)) {
             case "boolean":
-                return $var ? "TRUE" : "FALSE";
+                return $var ? "true" : "false";
             case "integer":
             case "double":
                 return $var;
             case "string":
                 return "\"{$var}\"";
             case "array":
-                return "Array(" . count($var) . ")";
+                return "array(" . count($var) . ")";
             case "object":
-                return "Object(" . get_class($var) . ")";
+                return "object(" . get_class($var) . ")";
             case "resource":
-                return "Resource(" . get_resource_type($var) . ")";
+                return "resource(" . get_resource_type($var) . ")";
             case "NULL":
-                return "NULL";
+                return "null";
             default:
-                return "Unknown Type";
+                return "unknown";
         }
     }
 

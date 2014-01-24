@@ -66,7 +66,7 @@ class String
      */
     public static function mb_lcfirst($string, $encoding = null)
     {
-        $string[0] = mb_strtolower($string[0], (is_null($encoding) ? mb_internal_encoding() : $encoding));
+        $string[0] = mb_strtolower($string[0], ((null !== $encoding) ?: mb_internal_encoding()));
 
         return $string;
     }
@@ -80,7 +80,7 @@ class String
      */
     public static function mb_ucfirst($string, $encoding = null)
     {
-        $string[0] = mb_strtoupper($string[0], (is_null($encoding) ? mb_internal_encoding() : $encoding));
+        $string[0] = mb_strtoupper($string[0], ((null !== $encoding) ?: mb_internal_encoding()));
 
         return $string;
     }
@@ -95,7 +95,7 @@ class String
      */
     public static function camel($string, $encoding = null)
     {
-        $encoding = is_null($encoding) ? mb_internal_encoding() : $encoding;
+        $encoding = (null !== $encoding) ?: mb_internal_encoding();
 
         $callback = function($matches) use ($encoding) {
 
