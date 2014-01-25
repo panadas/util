@@ -28,9 +28,11 @@ class Php
                 return "resource(" . get_resource_type($var) . ")";
             case "NULL":
                 return "null";
+            // @codeCoverageIgnoreStart
             default:
                 return "unknown";
         }
+        // @codeCoverageIgnoreEnd
     }
 
 }

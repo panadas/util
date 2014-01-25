@@ -5,7 +5,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers Php::toString()
+     * @covers Panadas\Util\Php::toString()
      * @dataProvider toStringProvider
      */
     public function testToString($var, $expected)

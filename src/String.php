@@ -16,16 +16,22 @@ class String
      * @param  string  $string
      * @param  boolean $reveal
      * @param  string  $character
+     * @param  string  $encoding
      * @throws \InvalidArgumentException
      * @return string
      */
-    public static function mask($string, $reveal = false, $character = "*")
+    public static function mask($string, $reveal = false, $character = "*", $encoding = null)
     {
-        if (mb_strlen($character) !== 1) {
+        if (null === $encoding) {
+            $encoding = mb_internal_encoding();
+        }
+
+        if (mb_strlen($character, $encoding) !== 1) {
             throw new \InvalidArgumentException("A single character is required");
         }
 
-        $length = mb_strlen($string);
+        $length = mb_strlen($string, $encoding);
+        $reveal_length = 0;
 
         if ($reveal) {
 
@@ -38,20 +44,18 @@ class String
             // Set the number of characters to reveal each side
             $reveal_length = floor($reveal_length / 2);
 
-        } else {
-            $reveal_length = 0;
         }
 
         $masked = "";
 
         if ($reveal_length > 0) {
-            $masked .= mb_substr($string, 0, $reveal_length);
+            $masked .= mb_substr($string, 0, $reveal_length, $encoding);
         }
 
         $masked .= str_repeat($character, ($length - ($reveal_length * 2)));
 
         if ($reveal_length > 0) {
-            $masked .= mb_substr($string, -$reveal_length);
+            $masked .= mb_substr($string, -$reveal_length, null, $encoding);
         }
 
         return $masked;
@@ -64,11 +68,17 @@ class String
      * @param  string $encoding
      * @return string
      */
-    public static function mb_lcfirst($string, $encoding = null)
+    public static function mbLcfirst($string, $encoding = null)
     {
-        $string[0] = mb_strtolower($string[0], ((null !== $encoding) ?: mb_internal_encoding()));
+        if (null === $encoding) {
+            $encoding = mb_internal_encoding();
+        }
 
-        return $string;
+        if (mb_strlen($string, $encoding) === 0) {
+            return $string;
+        }
+
+        return mb_strtolower(mb_substr($string, 0, 1, $encoding), $encoding) . mb_substr($string, 1, null, $encoding);
     }
 
     /**
@@ -78,11 +88,17 @@ class String
      * @param  string $encoding
      * @return string
      */
-    public static function mb_ucfirst($string, $encoding = null)
+    public static function mbUcfirst($string, $encoding = null)
     {
-        $string[0] = mb_strtoupper($string[0], ((null !== $encoding) ?: mb_internal_encoding()));
+        if (null === $encoding) {
+            $encoding = mb_internal_encoding();
+        }
 
-        return $string;
+        if (mb_strlen($string, $encoding) === 0) {
+            return $string;
+        }
+
+        return mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding) . mb_substr($string, 1, null, $encoding);
     }
 
     /**
@@ -95,19 +111,19 @@ class String
      */
     public static function camel($string, $encoding = null)
     {
-        $encoding = (null !== $encoding) ?: mb_internal_encoding();
+        if (null === $encoding) {
+            $encoding = mb_internal_encoding();
+        }
 
         $callback = function($matches) use ($encoding) {
-
-            if (empty($matches[1])) {
-                return null;
-            }
 
             return mb_strtoupper($matches[1], $encoding);
 
         };
 
-        return preg_replace_callback("/[^a-z0-9](.)?/", $callback, mb_strtolower($string, $encoding));
+        $string = mb_strtolower($string, $encoding);
+
+        return preg_replace_callback("/[ _-]([a-z])/", $callback, $string);
     }
 
     /**

@@ -5,7 +5,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers Http::getStatusCodes()
+     * @covers Panadas\Util\Http::getStatusCodes()
      */
     public function testGetStatusCodes()
     {
@@ -13,7 +13,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Http::hasStatusCode()
+     * @covers Panadas\Util\Http::hasStatusCode()
      */
     public function testHasStatusCodes()
     {
@@ -22,7 +22,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Http::getStatusMessageFromCode()
+     * @covers Panadas\Util\Http::getStatusMessageFromCode()
      */
     public function testGetStatusMessageFromCode()
     {
@@ -31,12 +31,24 @@ class HttpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Http::getPhpHeaderName()
+     * @covers Panadas\Util\Http::getPhpHeaderName()
+     * @dataProvider getPhpHeaderNameProvider
      */
-    public function testGetPhpHeaderName()
+    public function testGetPhpHeaderName($header, $expected)
     {
-        $this->assertEquals("HTTP_FOO_BAR", Http::getPhpHeaderName("foo bar"));
-        $this->assertEquals("HTTP_X_FOO_BAR", Http::getPhpHeaderName("x-foo-bar"));
+        $this->assertEquals($expected, Http::getPhpHeaderName($header));
     }
+
+    /**
+     * @return array
+     */
+    public function getPhpHeaderNameProvider()
+    {
+        return [
+	        ["foo bar", "HTTP_FOO_BAR"],
+	        ["x-foo-bar", "HTTP_X_FOO_BAR"]
+        ];
+    }
+
 
 }
