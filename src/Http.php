@@ -4,11 +4,6 @@ namespace Panadas\Util;
 class Http
 {
 
-    const METHOD_GET    = "GET";
-    const METHOD_POST   = "POST";
-    const METHOD_PUT    = "PUT";
-    const METHOD_DELETE = "DELETE";
-
     static private $status_code_map = [
         100 => "Continue",
         101 => "Switching Protocols",
