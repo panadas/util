@@ -3,6 +3,12 @@
     "description": "A set of generic utility methods.",
     "license": "MIT",
     "type": "library",
+    "authors": [
+        {
+            "name": "Adam Pancutt",
+            "email": "adam@panadas.co.uk"
+        }
+    ],
     "require": {
         "php": ">=5.5.0",
         "ext-mcrypt": "*"
