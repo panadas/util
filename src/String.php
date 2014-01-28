@@ -11,7 +11,7 @@ class String
     const RANDOM_MCRYPT_IV_SOURCE = MCRYPT_DEV_URANDOM;
 
     /**
-     * Mask a string, optionally revealing some of the first and last characters.
+     * Mask a string optionally revealing some of the first and last characters.
      *
      * @param  string  $string
      * @param  boolean $reveal
@@ -20,42 +20,49 @@ class String
      * @throws \InvalidArgumentException
      * @return string
      */
-    public static function mask($string, $reveal = false, $character = "*", $encoding = null)
-    {
+    public static function mask(
+        $string,
+        $reveal = false,
+        $character = "*",
+        $encoding = null
+    ) {
         if (null === $encoding) {
             $encoding = mb_internal_encoding();
         }
 
         if (mb_strlen($character, $encoding) !== 1) {
-            throw new \InvalidArgumentException("A single character is required");
+            throw new \InvalidArgumentException(
+                "A single character is required"
+            );
         }
 
         $length = mb_strlen($string, $encoding);
-        $reveal_length = 0;
+        $revealLength = 0;
 
         if ($reveal) {
 
-            // Calculate the number of characters to reveal up to a maximum of MASK_REVEAL_MAX_LENGTH characters
-            $reveal_length = min(
+            // Calculate the number of characters to reveal up to a maximum of
+            // MASK_REVEAL_MAX_LENGTH characters
+            $revealLength = min(
                 ($length * (static::MASK_REVEAL_PERCENT / 100)),
                 static::MASK_REVEAL_MAX_LENGTH
             );
 
             // Set the number of characters to reveal each side
-            $reveal_length = floor($reveal_length / 2);
+            $revealLength = floor($revealLength / 2);
 
         }
 
         $masked = "";
 
-        if ($reveal_length > 0) {
-            $masked .= mb_substr($string, 0, $reveal_length, $encoding);
+        if ($revealLength > 0) {
+            $masked .= mb_substr($string, 0, $revealLength, $encoding);
         }
 
-        $masked .= str_repeat($character, ($length - ($reveal_length * 2)));
+        $masked .= str_repeat($character, ($length - ($revealLength * 2)));
 
-        if ($reveal_length > 0) {
-            $masked .= mb_substr($string, -$reveal_length, null, $encoding);
+        if ($revealLength > 0) {
+            $masked .= mb_substr($string, -$revealLength, null, $encoding);
         }
 
         return $masked;
@@ -78,7 +85,10 @@ class String
             return $string;
         }
 
-        return mb_strtolower(mb_substr($string, 0, 1, $encoding), $encoding) . mb_substr($string, 1, null, $encoding);
+        return (
+            mb_strtolower(mb_substr($string, 0, 1, $encoding), $encoding)
+            . mb_substr($string, 1, null, $encoding)
+        );
     }
 
     /**
@@ -98,12 +108,15 @@ class String
             return $string;
         }
 
-        return mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding) . mb_substr($string, 1, null, $encoding);
+        return (
+            mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding)
+            . mb_substr($string, 1, null, $encoding)
+        );
     }
 
     /**
-     * Convert a string to camel-case. All non-alphanumeric characters are considered word boundaries. The first
-     * character is lowercase.
+     * Convert a string to camel-case. All non-alphabetic characters are
+     * considered word boundaries. The first character is lowercase.
      *
      * @param  string $string
      * @param  string $encoding
@@ -115,15 +128,13 @@ class String
             $encoding = mb_internal_encoding();
         }
 
-        $callback = function($matches) use ($encoding) {
-
-            return mb_strtoupper($matches[1], $encoding);
-
-        };
-
-        $string = mb_strtolower($string, $encoding);
-
-        return preg_replace_callback("/[ _-]([a-z])/", $callback, $string);
+        return preg_replace_callback(
+            "/[ _-]([a-z])/",
+            function ($matches) use ($encoding) {
+                return mb_strtoupper($matches[1], $encoding);
+            },
+            mb_strtolower($string, $encoding)
+        );
     }
 
     /**
@@ -161,7 +172,12 @@ class String
         $string = null;
 
         while (mb_strlen($string) < $length) {
-            $string .= sha1(mcrypt_create_iv(static::RANDOM_MCRYPT_IV_SIZE, static::RANDOM_MCRYPT_IV_SOURCE));
+            $string .= sha1(
+                mcrypt_create_iv(
+                    static::RANDOM_MCRYPT_IV_SIZE,
+                    static::RANDOM_MCRYPT_IV_SOURCE
+                )
+            );
         }
 
         if (mb_strlen($string) > $length) {
@@ -170,5 +186,4 @@ class String
 
         return $string;
     }
-
 }
