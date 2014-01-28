@@ -20,20 +20,14 @@ class String
      * @throws \InvalidArgumentException
      * @return string
      */
-    public static function mask(
-        $string,
-        $reveal = false,
-        $character = "*",
-        $encoding = null
-    ) {
+    public static function mask($string, $reveal = false, $character = "*", $encoding = null)
+    {
         if (null === $encoding) {
             $encoding = mb_internal_encoding();
         }
 
         if (mb_strlen($character, $encoding) !== 1) {
-            throw new \InvalidArgumentException(
-                "A single character is required"
-            );
+            throw new \InvalidArgumentException("A single character is required");
         }
 
         $length = mb_strlen($string, $encoding);
@@ -172,12 +166,7 @@ class String
         $string = null;
 
         while (mb_strlen($string) < $length) {
-            $string .= sha1(
-                mcrypt_create_iv(
-                    static::RANDOM_MCRYPT_IV_SIZE,
-                    static::RANDOM_MCRYPT_IV_SOURCE
-                )
-            );
+            $string .= sha1(mcrypt_create_iv(static::RANDOM_MCRYPT_IV_SIZE, static::RANDOM_MCRYPT_IV_SOURCE));
         }
 
         if (mb_strlen($string) > $length) {
