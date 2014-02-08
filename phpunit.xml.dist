@@ -14,4 +14,8 @@
         </whitelist>
     </filter>
 
+    <logging>
+        <log type="coverage-text" target="php://output" showUncoveredFiles="false"/>
+    </logging>
+
 </phpunit>

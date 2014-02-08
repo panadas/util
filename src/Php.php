@@ -5,6 +5,32 @@ class Php
 {
 
     /**
+     * @param  mixed $var
+     * @return boolean
+     */
+    public static function isIterable($var)
+    {
+        return (is_array($var) || ($var instanceof \Traversable));
+    }
+
+    /**
+     * @param  mixed $var
+     * @return boolean
+     */
+    public static function makeIterable($var)
+    {
+        if (static::isIterable($var)) {
+            return $var;
+        }
+
+        if (null === $var) {
+            return [];
+        }
+
+        return [$var];
+    }
+
+    /**
      * Convert an arbitrary variable to a string representation.
      *
      * @param  mixed $var
