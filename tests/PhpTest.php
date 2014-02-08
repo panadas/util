@@ -62,5 +62,4 @@ class PhpTest extends \PHPUnit_Framework_TestCase
             [null, "null"]
         ];
     }
-
 }

@@ -115,5 +115,4 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals(String::random(10), String::random(10));
         $this->assertEquals(10, mb_strlen(String::random(10)));
     }
-
 }
