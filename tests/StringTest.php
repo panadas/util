@@ -32,9 +32,6 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, String::mbLcFirst($string, $encoding));
     }
 
-    /**
-     * @return array
-     */
     public function mbLcfirstProvider()
     {
         return [
@@ -74,9 +71,6 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, String::camel($string, $encoding));
     }
 
-    /**
-     * @return array
-     */
     public function camelProvider()
     {
         return [

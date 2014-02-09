@@ -14,9 +14,6 @@ class PhpTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, Php::makeIterable($var));
     }
 
-    /**
-     * @return array
-     */
     public function isIterableProvider()
     {
         $resource = socket_create(AF_INET, SOCK_STREAM, 0);
@@ -45,9 +42,6 @@ class PhpTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, Php::toString($var));
     }
 
-    /**
-     * @return array
-     */
     public function toStringProvider()
     {
         return [
