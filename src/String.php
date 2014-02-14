@@ -166,7 +166,7 @@ class String
         $string = null;
 
         while (mb_strlen($string) < $length) {
-            $string .= sha1(mcrypt_create_iv(static::RANDOM_MCRYPT_IV_SIZE, static::RANDOM_MCRYPT_IV_SOURCE));
+            $string .= base64_encode(mcrypt_create_iv($length, static::RANDOM_MCRYPT_IV_SOURCE));
         }
 
         if (mb_strlen($string) > $length) {
