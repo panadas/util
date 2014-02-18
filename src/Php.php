@@ -51,7 +51,7 @@ class Php
             case "object":
                 return get_class($var);
             case "resource":
-                return "resource(" . get_resource_type($var) . ")";
+                return "resource[" . get_resource_type($var) . "]";
             case "NULL":
                 return "null";
             // @codeCoverageIgnoreStart

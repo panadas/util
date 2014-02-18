@@ -50,9 +50,9 @@ class PhpTest extends \PHPUnit_Framework_TestCase
             ["foo", "\"foo\""],
             [123, 123],
             [1.23, 1.23],
-            [["foo", "bar"], "array(2)"],
-            [socket_create(AF_INET, SOCK_STREAM, 0), "resource(Socket)"],
-            [new \stdClass(), "object(stdClass)"],
+            [["foo", "bar"], "array[2]"],
+            [socket_create(AF_INET, SOCK_STREAM, 0), "resource[Socket]"],
+            [new \stdClass(), "stdClass"],
             [null, "null"]
         ];
     }
