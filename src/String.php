@@ -13,10 +13,10 @@ class String
     /**
      * Mask a string optionally revealing some of the first and last characters.
      *
-     * @param  string  $string
-     * @param  boolean $reveal
-     * @param  string  $character
-     * @param  string  $encoding
+     * @param  string                    $string
+     * @param  boolean                   $reveal
+     * @param  string                    $character
+     * @param  string                    $encoding
      * @throws \InvalidArgumentException
      * @return string
      */
@@ -134,8 +134,8 @@ class String
     /**
      * Check if a string starts with the provided prefix.
      *
-     * @param  string $prefix
-     * @param  string $string
+     * @param  string  $prefix
+     * @param  string  $string
      * @return boolean
      */
     public static function startsWith($prefix, $string)
@@ -146,8 +146,8 @@ class String
     /**
      * Check if a string ends with the provided suffix.
      *
-     * @param  string $prefix
-     * @param  string $string
+     * @param  string  $prefix
+     * @param  string  $string
      * @return boolean
      */
     public static function endsWith($suffix, $string)

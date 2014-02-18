@@ -5,7 +5,7 @@ class Php
 {
 
     /**
-     * @param  mixed $var
+     * @param  mixed   $var
      * @return boolean
      */
     public static function isIterable($var)
@@ -14,7 +14,7 @@ class Php
     }
 
     /**
-     * @param  mixed $var
+     * @param  mixed   $var
      * @return boolean
      */
     public static function makeIterable($var)
@@ -33,7 +33,7 @@ class Php
     /**
      * Convert an arbitrary variable to a string representation.
      *
-     * @param  mixed $var
+     * @param  mixed  $var
      * @return string
      */
     public static function toString($var)
