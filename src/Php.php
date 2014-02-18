@@ -47,9 +47,9 @@ class Php
             case "string":
                 return "\"{$var}\"";
             case "array":
-                return "array(" . count($var) . ")";
+                return "array[" . count($var) . "]";
             case "object":
-                return "object(" . get_class($var) . ")";
+                return get_class($var);
             case "resource":
                 return "resource(" . get_resource_type($var) . ")";
             case "NULL":
